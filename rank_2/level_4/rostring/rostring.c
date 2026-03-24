@@ -47,21 +47,19 @@ int end_word(char *str, int start)
 {
 	int i = start;
 
-	while(!is_space(str[i]))
+	while(str[i] && !is_space(str[i]))
 	{
-		if (str[i + 1] || is_space(str[i + 1]))
-			return i;
 		i++;
 	}
-	return -1;
+	return (i -1);
 }
 
 
 char *ft_strcpy(char *str, int start, int end)
 {
-	int len = start + end + 2;
+	int len = end - start + 1;
 	int i = 0;
-	char *res = malloc(sizeof(char) * len);
+	char *res = malloc(sizeof(char) * len + 1);
 
 	if (!res)
 		return (NULL);
@@ -89,23 +87,18 @@ char **ft_split(char *str)
 
 	while(str[i])
 	{
-		while(is_space(str[i]))
+		while(str[i] && is_space(str[i]))
 			i++;
 		if (str[i] && !is_space(str[i]))
 		{
 			start = start_word(str, i);
-			printf("%d\n", start);
 			end = end_word(str, start);
-			printf("%d\n", end);
 			if (start == -1 || end == -1)
 				break;
 			matrix[j] = ft_strcpy(str, start, end);
-			printf("matrix[%d]: %s\n", j, matrix[j]);
 			j++;
-			i = end;
-			printf("%d\n", i);
+			i = end + 1;
 		}
-		i++;
 	}
 	matrix[j] = NULL;
 	return (matrix);
@@ -122,7 +115,25 @@ void print_matrix(char **matrix)
 	}
 }
 
-
+void rostring(char **matrix)
+{
+		int i = 0;
+		int len = 0;
+		while (matrix[len])
+				len++;
+		if (len > 1)
+		{
+				if (i == 0)
+						i++;
+				while(matrix[i])
+				{
+						ft_putstr(matrix[i]);
+						write(1, " ", 1);
+						i++;
+				}
+		}
+		ft_putstr(matrix[0]);
+}
 
 
 int main(int argc, char **argv)
@@ -131,6 +142,7 @@ int main(int argc, char **argv)
 	{
 		char **result = ft_split(argv[1]);
 		print_matrix(result);
+		rostring(result);
 	}
 	write(1, "\n", 1);
 	return 0;

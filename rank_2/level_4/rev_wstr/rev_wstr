@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Assignment name  : rev_wstr
+=======
+ssignment name  : rev_wstr
+>>>>>>> 917c02619209f63a794e052e97cb7acc7260cf3a
 Expected files   : rev_wstr.c
 Allowed functions: write, malloc, free
 --------------------------------------------------------------------------------
